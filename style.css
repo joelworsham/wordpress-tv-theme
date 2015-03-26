@@ -7,6 +7,13 @@ Author: Automattic
 Author URI: http://automattic.com/
 */
 
+/*
+Media breakpoints:
+large 940
+medium 620
+small 400
+*/
+
 /* meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/ */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
