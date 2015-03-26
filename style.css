@@ -2172,9 +2172,11 @@ h5 {
 	display: none;
 }
 
-.wptv-hero .secondary-videos {
-	float: right;
-	width: 345px;
+@media screen and ( min-width:940px ) {
+	.wptv-hero .secondary-videos {
+		float: right;
+		width: 345px;
+	}
 }
 
 .wptv-hero .secondary-videos h3 {
@@ -2194,6 +2196,12 @@ h5 {
 
 	margin: 0 auto 23px 0;
 	padding: 0 0 0 142px;
+}
+@media screen and ( min-width:620px ) and ( max-width:940px ) {
+	.wptv-hero .secondary-videos li {
+		width: 25%;
+		float: left;
+	}
 }
 
 .wptv-hero .secondary-videos img {
