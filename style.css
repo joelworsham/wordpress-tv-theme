@@ -218,7 +218,7 @@ form, fieldset, address {
 }
 
 #header .sleeve {
-	width: 942px;
+	max-width: 942px;
 	margin: 0 auto;
 }
 
@@ -1790,7 +1790,7 @@ a {
 }
 
 .container {
-	width: 940px;
+	max-width: 940px;
 	margin: auto;
 }
 
