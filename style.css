@@ -225,7 +225,7 @@ form, fieldset, address {
 }
 
 #header .sleeve {
-	width: 942px;
+	max-width: 942px;
 	margin: 0 auto;
 }
 
@@ -1797,7 +1797,7 @@ a {
 }
 
 .container {
-	width: 940px;
+	max-width: 940px;
 	margin: auto;
 }
 
@@ -1938,7 +1938,7 @@ body, td, p,
 }
 
 .page-title {
-	width: 940px;
+	max-width: 940px;
 	margin: auto;
 }
 
@@ -2360,7 +2360,7 @@ body:not(.single) .video-info {
 
 .single .video-player {
 	float: left;
-	width: 940px !important;
+	max-width: 940px !important;
 	height: 529px !important;
 
 	overflow: hidden;
@@ -2553,7 +2553,7 @@ h3#comments {
 ============================================================= */
 
 .error404 .primary-content {
-	width: 940px;
+	max-width: 940px;
 }
 
 .error404 h2 {
