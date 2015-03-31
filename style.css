@@ -218,6 +218,11 @@ form, fieldset, address {
 	margin-top: 10px;
 	height: 57px;
 }
+@media screen and ( max-width:940px ) {
+	#header {
+		padding: 0 10px;
+	}
+}
 
 #header h1 {
 	padding-top: 8px;
@@ -1803,8 +1808,14 @@ a {
 
 .primary-content {
 	float: left;
-	width: 700px;
+	max-width: 700px;
 	margin: 0;
+}
+
+@media screen and ( max-width:940px ) {
+	.primary-content {
+		padding: 0 10px;
+	}
 }
 
 .secondary-content {
@@ -2105,6 +2116,12 @@ h5 {
 	background: #F0F0F0;
 }
 
+@media screen and ( max-width:940px ) {
+	.wptv-hero {
+		padding: 30px 10px 10px;
+	}
+}
+
 .wptv-hero .main-video {
 	background: #2f2f2f;
 	clear: both;
@@ -2245,8 +2262,10 @@ h5 {
 	position: relative;
 }
 
-.video-list.four-col {
-	width: 860px;
+@media screen and ( min-width:940px ) {
+	.video-list.four-col {
+		width: 860px;
+	}
 }
 
 .video-list.four-col li {
