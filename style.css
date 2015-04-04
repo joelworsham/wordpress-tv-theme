@@ -1593,24 +1593,27 @@ div.sharedaddy.sd-rating-enabled .sd-like .post-likes-widget, div.sharedaddy.sd-
 	font-size: 10px;
 }
 
-#footer {
-	clear: both;
-	height: 3.5em;
-	margin-bottom: 15px;
-	color: #888;
-}
-
 #footer .automattic {
-	width: 400px;
-	float: right;
-	text-align: right;
 	font-size: 11px;
 	letter-spacing: 0.2em;
-	line-height: 3em;
-	padding-top: 13px;
-	padding-right: 2px;
+	padding: 13px 2px 0 0;
 	text-transform: uppercase;
 	line-height: 28px;
+}
+
+@media screen and ( max-width:920px ) {
+	#footer .automattic {
+		width: 100%;
+		clear: both;
+	}
+}
+
+@media screen and ( min-width:921px ) {
+	#footer .automattic {
+		width: 380px;
+		float: right;
+		text-align: right;
+	}
 }
 
 .menu-footer-container {
@@ -1621,8 +1624,16 @@ div.sharedaddy.sd-rating-enabled .sd-like .post-likes-widget, div.sharedaddy.sd-
 	margin-bottom: 0;
 }
 
-.menu-footer-container li {
-	display: inline-block;
+@media screen and ( min-width:621px ) {
+	.menu-footer-container li {
+		display: inline-block;
+	}
+}
+
+@media screen and ( max-width:620px ) {
+	.dot {
+		display: none;
+	}
 }
 
 .menu-footer-container li:last-of-type .dot {
@@ -1807,8 +1818,6 @@ a {
 }
 
 .primary-content {
-	float: left;
-	max-width: 700px;
 	margin: 0;
 }
 
@@ -1818,10 +1827,23 @@ a {
 	}
 }
 
+@media screen and ( min-width:941px ) {
+	.primary-content {
+		float: left;
+		max-width: 700px;
+	}
+}
+
 .secondary-content {
-	float: right;
-	width: 170px;
-	margin: 0 0 50px 0;
+	margin: 0 10px;
+}
+
+@media screen and ( min-width:941px ) {
+	.secondary-content {
+		float: right;
+		width: 170px;
+		margin: 0 0 50px 0;
+	}
 }
 
 .miro {
@@ -2189,7 +2211,7 @@ h5 {
 	display: none;
 }
 
-@media screen and ( min-width:940px ) {
+@media screen and ( min-width:941px ) {
 	.wptv-hero .secondary-videos {
 		float: right;
 		width: 345px;
@@ -2241,8 +2263,6 @@ h5 {
 }
 
 .video-list li {
-	float: left;
-	min-height: 220px;
 	margin-bottom: 20px;
 }
 
@@ -2262,15 +2282,21 @@ h5 {
 	position: relative;
 }
 
-@media screen and ( min-width:940px ) {
+@media screen and ( min-width:941px ) {
 	.video-list.four-col {
 		width: 860px;
 	}
 }
 
-.video-list.four-col li {
-	width: 160px;
-	margin-right: 20px;
+@media screen and ( min-width:395px ) {
+	.video-list li {
+		float: left;
+		min-height: 220px;
+	}
+	.video-list.four-col li {
+		width: 160px;
+		margin-right: 20px;
+	}
 }
 
 .secondary-content .video-list .video-title {
@@ -2616,9 +2642,17 @@ h3#comments {
 
 #footer {
 	background: #F0F0F0;
-
+	color: #888;
 	margin: 10px 0 0 0;
-	padding: 10px 0;
+	padding: 10px;
+}
+
+@media screen and ( min-width:921px ) {
+	#footer {
+		clear: both;
+		height: 3.5em;
+		margin-bottom: 15px;
+	}
 }
 
 #footer .dot {
