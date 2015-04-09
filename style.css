@@ -2147,8 +2147,12 @@ h5 {
 .wptv-hero .main-video {
 	background: #2f2f2f;
 	clear: both;
+}
 
-	float: left;
+@media screen and ( min-width:941px ) {
+	.wptv-hero .main-video {
+		float: left;
+	}
 }
 
 .wptv-hero .main-video .video-player {
@@ -2231,6 +2235,13 @@ h5 {
 	}
 }
 
+@media screen and ( max-width:940px ) {
+	.wptv-hero .secondary-videos {
+		display: inline-block;
+		margin-top: 20px;
+	}
+}
+
 .wptv-hero .secondary-videos h3 {
 	font-size: 18px;
 	font-weight: bold;
@@ -2243,7 +2254,7 @@ h5 {
 .wptv-hero .secondary-videos li {
 	font-size: 13px;
 
-	min-height: 75px;
+	min-height: 78px;
 	position: relative;
 
 	margin: 0 auto 23px 0;
@@ -2266,6 +2277,12 @@ h5 {
 
 .wptv-hero .secondary-videos a:hover img {
 	opacity: 0.8;
+}
+
+@media screen and ( max-width:940px ) {
+	.wptv-category-title {
+		display: inline-block;
+	}
 }
 
 /* Video lists
