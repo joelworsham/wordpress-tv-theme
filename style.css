@@ -2149,13 +2149,26 @@ h5 {
 	clear: both;
 
 	float: left;
-	width: 575px;
 }
 
 .wptv-hero .main-video .video-player {
 	width: 100% !important;
-	height: 323px !important;
 	margin: 0 !important;
+}
+
+@media screen and ( min-width:601px ) {
+	.wptv-hero .main-video {
+		width: 575px;
+	}
+	.wptv-hero .main-video .video-player {
+		height: 323px !important;
+	}
+}
+
+@media screen and ( max-width:600px ) {
+	.wptv-hero .main-video .video-player {
+		height: auto !important;
+	}
 }
 
 .wptv-hero .main-video .video-player .videopress-placeholder {
