@@ -1441,10 +1441,12 @@ div.sharedaddy.sd-rating-enabled .sd-like .post-likes-widget, div.sharedaddy.sd-
 	display: none;
 }
 
+/*
 #content {
 	width: 630px;
 	float: left;
 }
+*/
 
 #content .post {
 	margin-bottom: 20px;
@@ -1528,7 +1530,7 @@ div.sharedaddy.sd-rating-enabled .sd-like .post-likes-widget, div.sharedaddy.sd-
 }
 
 #commentform textarea {
-	width: 600px;
+	width: 96%;
 	height: 100px;
 	margin-bottom: 5px;
 }
@@ -2440,15 +2442,15 @@ body:not(.single) .video-info {
 }
 
 /* Video Player and Placeholder */
+@media screen and ( min-width:941px ) {
+	.single .video-player {
+		float: left;
+		width: 940px !important;
+		height: 529px !important;
 
-.single .video-player {
-	float: left;
-	max-width: 940px !important;
-	height: 529px !important;
-
-	overflow: hidden;
+		overflow: hidden;
+	}
 }
-
 .videopress-placeholder,
 .video-player object {
 	width: 100% !important;
@@ -2606,6 +2608,15 @@ h3#comments {
 
 .tax-event .secondary-videos li {
 	margin: 0 auto 13px 0
+}
+
+/* Contact Page
+============================================================= */
+
+@media screen and ( max-width:400px ) {
+	.entry .contact-form textarea {
+		width: 98%;
+	}
 }
 
 /* Secondary Content
