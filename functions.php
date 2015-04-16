@@ -774,6 +774,7 @@ function wptv_enqueue_scripts() {
 
 	wp_register_script( 'wptv-dropdowns', get_template_directory_uri() . '/js/dropdowns.js' );
 	wp_enqueue_script( 'wptv-dropdowns', array( 'jquery' ) );
+	wp_enqueue_script( 'jquery-ui-accordion' );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -781,6 +782,19 @@ function wptv_enqueue_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'wptv_enqueue_scripts' );
 
+function wptv_menu_script() {
+	?>
+	<script>
+		jQuery(document).ready(function($) {
+				$( "#menu-mobile" ).accordion( {
+					collapsible: true,
+					active: false
+				} );
+		});
+	</script>
+<?php
+}
+add_action( 'wp_head', 'wptv_menu_script' );
 /**
  * Create a nicely formatted and more specific title element text for output
  * in head of document, based on current view.

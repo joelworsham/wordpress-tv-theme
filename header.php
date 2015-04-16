@@ -14,7 +14,7 @@ global $wptv;
 
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
 
 	<link rel="alternate" type="application/rss+xml" title="<?php esc_attr_e( 'WordPress.tv RSS Feed', 'wptv' ); ?>" href="http://wordpress.tv/feed/" />
@@ -39,6 +39,10 @@ global $wptv;
 			</form>
 
 			<div id="menu">
+				<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
+			</div>
+			<div id="menu-mobile">
+				<span class="open">Navigation</span>
 				<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
 			</div>
 

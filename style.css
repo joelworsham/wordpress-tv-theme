@@ -216,14 +216,17 @@ form, fieldset, address {
 
 #header {
 	margin-top: 10px;
-	height: 57px;
 }
 @media screen and ( max-width:940px ) {
 	#header {
 		padding: 0 10px;
 	}
 }
-
+@media screen and ( min-width:601px ) {
+	#header {
+		height: 57px;
+	}
+}
 #header h1 {
 	padding-top: 8px;
 	float: left;
@@ -265,9 +268,11 @@ form, fieldset, address {
 	color: #000 !important;
 }
 
-#searchform {
-	float: right;
-	margin-left: 15px;
+@media screen and ( min-width:401px ) {
+	#searchform {
+		float: right;
+		margin-left: 15px;
+	}
 }
 
 #searchform #searchbox,
@@ -290,9 +295,51 @@ form, fieldset, address {
 	width: 130px;
 }
 
+@media screen and ( max-width:400px ) {
+	#searchform #searchbox,
+	#searchform input#s {
+		width: 95%;
+	}
+}
+
 #searchform #searchbox {
 	margin-top: 15px;
 }
+
+/* Mobile menu */
+@media screen and ( min-width:601px ) {
+	#menu-mobile {
+		display: none;
+	}
+}
+
+@media screen and ( max-width:600px ) {
+	#menu {
+		display: none;
+	}
+	#menu-mobile {
+		display: inline-block;
+	}
+}
+
+#menu-mobile {
+	width: 100%;
+	text-align: center;
+	font-size: 1.8em;
+	line-height: 1.6em;
+	margin: 10px 0 0 0;
+}
+#menu-mobile .open {
+	cursor: pointer;
+	color: #21759b;
+	font-weight: bold;
+	padding: 6px 20px;
+	border: 1px solid;
+}
+#menu-mobile .open:hover {
+	color: #d54e21;
+}
+/* Forms */
 
 input[type=submit], button, .button {
 	text-decoration: none;
@@ -368,6 +415,7 @@ input[type=submit]:active, button:active, .button:active {
 	);
 }
 
+/* Intro */
 .intro {
 	font-size: 30px;
 	height: 64px;
@@ -1891,7 +1939,6 @@ a {
 .nav-previous {
 	float: left;
 }
-
 .primary-content #searchform {
 	float: none;
 	margin: 10px 0;
