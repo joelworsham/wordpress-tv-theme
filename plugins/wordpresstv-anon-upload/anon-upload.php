@@ -48,6 +48,7 @@ class WPTV_Anon_Upload {
 		$text_fields = array(
 			'wptv_video_title',
 			'wptv_video_producer',
+			'wptv_video_producer_username',
 			'wptv_speakers',
 			'wptv_event',
 			'wptv_slides_url'
@@ -186,23 +187,23 @@ class WPTV_Anon_Upload {
 
 		if ( ! empty( $name_parts['extension'] ) ) {
 			if ( ! in_array( strtolower( $name_parts['extension'] ), array(
-					'avi',
-					'mov',
-					'qt',
-					'mpeg',
-					'mpg',
-					'mpe',
-					'mp4',
-					'm4v',
-					'asf',
-					'asx',
-					'wax',
-					'wmv',
-					'wmx',
-					'ogv',
-					'3gp',
-					'3g2',
-				), true )
+				'avi',
+				'mov',
+				'qt',
+				'mpeg',
+				'mpg',
+				'mpe',
+				'mp4',
+				'm4v',
+				'asf',
+				'asx',
+				'wax',
+				'wmv',
+				'wmx',
+				'ogv',
+				'3gp',
+				'3g2',
+			), true )
 			) {
 				return $this->error( 2 );
 			}
@@ -229,8 +230,7 @@ class WPTV_Anon_Upload {
 		// Add default cat according to the "This is a WC video" checkbox
 		if ( ! empty( $_posted['wptv_video_wordcamp'] ) ) {
 			$anon_post['post_category'] = array( '12784353' ); // add the "WordCampTV" category
-		}
-		else {
+		} else {
 			$anon_post['post_category'] = array( '1' ); // Uncategorized
 		}
 
@@ -269,14 +269,15 @@ class WPTV_Anon_Upload {
 			$anon_author_email = $this->sanitize_text( $_posted['wptv_email'] );
 		}
 
-		$video_title    = $this->sanitize_text( $_posted['wptv_video_title'] );
-		$video_producer = $this->sanitize_text( $_posted['wptv_video_producer'] );
-		$speakers       = $this->sanitize_text( $_posted['wptv_speakers'] );
-		$event          = $this->sanitize_text( $_posted['wptv_event'] );
-		$description    = $this->sanitize_text( $_posted['wptv_video_description'], false );
-		$language       = $this->sanitize_text( $_posted['wptv_language'] );
-		$slides         = $this->sanitize_text( $_posted['wptv_slides_url'] );
-		$ip             = $_SERVER['REMOTE_ADDR'];
+		$video_title             = $this->sanitize_text( $_posted['wptv_video_title'] );
+		$video_producer          = $this->sanitize_text( $_posted['wptv_video_producer'] );
+		$video_producer_username = $this->sanitize_text( $_posted['wptv_video_producer_username'] );
+		$speakers                = $this->sanitize_text( $_posted['wptv_speakers'] );
+		$event                   = $this->sanitize_text( $_posted['wptv_event'] );
+		$description             = $this->sanitize_text( $_posted['wptv_video_description'], false );
+		$language                = $this->sanitize_text( $_posted['wptv_language'] );
+		$slides                  = $this->sanitize_text( $_posted['wptv_slides_url'] );
+		$ip                      = $_SERVER['REMOTE_ADDR'];
 
 		$categories = '';
 		if ( ! empty( $_posted['post_category'] ) && is_array( $_posted['post_category'] ) ) {
@@ -289,18 +290,19 @@ class WPTV_Anon_Upload {
 		}
 
 		$post_meta = array(
-			'attachment_id'   => $attachment_id,
-			'submitted_by'    => $anon_author,
-			'submitted_email' => $anon_author_email,
-			'title'           => $video_title,
-			'producer'        => $video_producer,
-			'speakers'        => $speakers,
-			'event'           => $event,
-			'language'        => $language,
-			'categories'      => $categories,
-			'description'     => $description,
-			'slides'          => $slides,
-			'ip'              => $ip,
+			'attachment_id'     => $attachment_id,
+			'submitted_by'      => $anon_author,
+			'submitted_email'   => $anon_author_email,
+			'title'             => $video_title,
+			'producer'          => $video_producer,
+			'producer_username' => $video_producer_username,
+			'speakers'          => $speakers,
+			'event'             => $event,
+			'language'          => $language,
+			'categories'        => $categories,
+			'description'       => $description,
+			'slides'            => $slides,
+			'ip'                => $ip,
 		);
 
 		$post_meta['video_guid'] = $video_data->guid;
@@ -327,7 +329,7 @@ class WPTV_Anon_Upload {
 
 		$attachment_post = get_post( $meta['attachment_id'] );
 
-		$embed_args = array(
+		$embed_args            = array(
 			'format'  => 'fmt_std',
 			'width'   => 600,
 			'context' => 'admin',
@@ -335,9 +337,15 @@ class WPTV_Anon_Upload {
 		$embed_args['blog_id'] = get_current_blog_id();
 		$embed_args['post_id'] = $meta['attachment_id'];
 
-		// Add slides index to meta (necessary for posts that were uploaded before the field was added)
-		if ( ! array_key_exists( 'slides', $meta ) ) {
-			$meta['slides'] = '';
+		// Add missing indexes to meta (necessary for posts that were uploaded before the fields were added)
+		$new_fields = array(
+			'slides',
+			'producer_username',
+		);
+		foreach ( $new_fields as $field ) {
+			if ( ! array_key_exists( $field, $meta ) ) {
+				$meta[$field] = '';
+			}
 		}
 
 		?>
@@ -401,9 +409,9 @@ class WPTV_Anon_Upload {
 					<tr>
 						<td>
 							<?php
-								if ( function_exists( 'video_embed' ) ) {
-									echo video_embed( $embed_args );
-								}
+							if ( function_exists( 'video_embed' ) ) {
+								echo video_embed( $embed_args );
+							}
 							?>
 						</td>
 					</tr>
@@ -412,13 +420,16 @@ class WPTV_Anon_Upload {
 				<div class="anon-data">
 					<div class="row">
 						<p class="label">Submitted by:<br></p>
+
 						<p class="data">
-							<input type="text" readonly="readonly" value="<?php echo esc_attr( $meta['submitted_by'] ); ?>"/>
+							<input type="text" readonly="readonly"
+							       value="<?php echo esc_attr( $meta['submitted_by'] ); ?>"/>
 						</p>
 					</div>
 
 					<div class="row">
 						<p class="label">Email:</p>
+
 						<p class="data">
 							<a href="mailto:<?php echo esc_attr( $meta['submitted_email'] ); ?>?Subject=Your%20WordPress.tv%20submission"><?php echo esc_html( $meta['submitted_email'] ); ?></a>
 						</p>
@@ -426,13 +437,17 @@ class WPTV_Anon_Upload {
 
 					<div class="row">
 						<p class="label">IP Address:</p>
+
 						<p class="data">
-							<a href="<?php echo esc_url( add_query_arg( array( 'query' => $meta['ip'] ), 'http://en.utrace.de' ) ); ?>" target="_blank"><?php echo esc_html( $meta['ip'] ); ?></a> (opens in new tab, shows location of the IP)
+							<a href="<?php echo esc_url( add_query_arg( array( 'query' => $meta['ip'] ), 'http://en.utrace.de' ) ); ?>"
+							   target="_blank"><?php echo esc_html( $meta['ip'] ); ?></a> (opens in new tab, shows
+							location of the IP)
 						</p>
 					</div>
 
 					<div class="row">
 						<p class="label">Title:</p>
+
 						<p class="data">
 							<input type="text" value="<?php echo esc_attr( $meta['title'] ); ?>"/>
 							<a class="button-secondary anon-approve" href="#title">Approve</a>
@@ -441,6 +456,7 @@ class WPTV_Anon_Upload {
 
 					<div class="row">
 						<p class="label">Language:</p>
+
 						<p class="data">
 							<input type="text" value="<?php echo esc_attr( $meta['language'] ); ?>"/>
 							<a class="button-secondary anon-approve" href="#new-tag-language">Approve</a>
@@ -449,21 +465,23 @@ class WPTV_Anon_Upload {
 
 					<div class="row">
 						<p class="label">Categories:</p>
+
 						<p class="data" id="anon-approve-cats">
 							<?php
-								$cats = preg_replace( '/[^0-9,]+/', '', trim( $meta['categories'], ' ,' ) );
-								$cats = explode( ',', $cats );
-								foreach ( $cats as $cat ) {
-									if ( intval( $cat ) ) {
-										echo '<a href="#in-category-' . $cat . '" class="anon-cat-link" title="Click to approve">Unknown?</a>, ';
-									}
+							$cats = preg_replace( '/[^0-9,]+/', '', trim( $meta['categories'], ' ,' ) );
+							$cats = explode( ',', $cats );
+							foreach ( $cats as $cat ) {
+								if ( intval( $cat ) ) {
+									echo '<a href="#in-category-' . $cat . '" class="anon-cat-link" title="Click to approve">Unknown?</a>, ';
 								}
+							}
 							?>
 						</p>
 					</div>
 
 					<div class="row">
 						<p class="label">Event:</p>
+
 						<p class="data">
 							<input type="text" value="<?php echo esc_attr( $meta['event'] ); ?>"/>
 							<a class="button-secondary anon-approve" href="#new-tag-event">Approve</a>
@@ -472,6 +490,7 @@ class WPTV_Anon_Upload {
 
 					<div class="row">
 						<p class="label">Producer:</p>
+
 						<p class="data">
 							<input type="text" value="<?php echo esc_attr( $meta['producer'] ); ?>"/>
 							<a class="button-secondary anon-approve" href="#new-tag-producer">Approve</a>
@@ -479,7 +498,17 @@ class WPTV_Anon_Upload {
 					</div>
 
 					<div class="row">
+						<p class="label">Producer .org Username:</p>
+
+						<p class="data">
+							<input type="text" value="<?php echo esc_attr( $meta['producer_username'] ); ?>"/>
+							<a class="button-secondary anon-approve" href="#wptv-producer-username">Approve</a>
+						</p>
+					</div>
+
+					<div class="row">
 						<p class="label">Speakers:</p>
+
 						<p class="data">
 							<input type="text" value="<?php echo esc_attr( $meta['speakers'] ); ?>"/>
 							<a class="button-secondary anon-approve" href="#new-tag-speakers">Approve</a>
@@ -488,6 +517,7 @@ class WPTV_Anon_Upload {
 
 					<div class="row txtarea">
 						<p class="label">Description:</p>
+
 						<p class="data">
 							<textarea rows="10"><?php echo esc_html( $meta['description'] ); ?></textarea>
 							<a class="button-secondary anon-approve" href="#excerpt">Approve</a>
@@ -496,6 +526,7 @@ class WPTV_Anon_Upload {
 
 					<div class="row">
 						<p class="label">Slides:</p>
+
 						<p class="data">
 							<input type="text" value="<?php echo esc_attr( $meta['slides'] ); ?>"/>
 							<a class="button-secondary anon-approve" href="#wptv-slides-url">Approve</a>
@@ -504,8 +535,10 @@ class WPTV_Anon_Upload {
 
 					<div class="row">
 						<p class="label">Edit attachment:</p>
+
 						<p class="data">
-							<a href="<?php echo esc_url( get_edit_post_link( $meta['attachment_id'] ) ); ?>" target="_blank"><?php echo esc_html( $attachment_post->post_title ); ?></a>
+							<a href="<?php echo esc_url( get_edit_post_link( $meta['attachment_id'] ) ); ?>"
+							   target="_blank"><?php echo esc_html( $attachment_post->post_title ); ?></a>
 						</p>
 					</div>
 				</div>
@@ -539,7 +572,9 @@ class WPTV_Anon_Upload {
 						if (id.indexOf('#new-tag-') != -1) {
 							el.val(target.siblings('input[type="text"]').val());
 							el.siblings('.tagadd').click();
-						} else if ('#title' == id  || '#wptv-slides-url' == id) {
+						} else if ('#title' == id || '#wptv-producer-username' == id) {
+							el.val(target.siblings('input[type="text"]').val());
+						} else if ('#title' == id || '#wptv-slides-url' == id) {
 							el.val(target.siblings('input[type="text"]').val());
 						} else if (id == '#excerpt') {
 							el.val(target.siblings('textarea').val());

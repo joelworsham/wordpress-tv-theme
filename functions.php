@@ -164,6 +164,7 @@ class WordPressTV_Theme {
 		global $post;
 
 		$slides_url = get_post_meta( $post->ID, '_wptv_slides_url', true );
+		$producer_username = get_post_meta( $post->ID, '_wptv_producer_username', true );
 		wp_nonce_field( 'edit-video-info', 'video_info_metabox_nonce' );
 
 		?>
@@ -172,7 +173,10 @@ class WordPressTV_Theme {
 			<label for="wptv-slides-url">Slides URL</label>
 			<input type="text" class="widefat" id="wptv-slides-url" name="_wptv_slides_url" value="<?php echo esc_url( $slides_url ); ?>" />
 		</p>
-
+		<p>
+			<label for="wptv-producer-username">Video Producer WordPress.org Username</label>
+			<input type="text" class="widefat" id="wptv-producer-username" name="_wptv_producer_username" value="<?php echo sanitize_user( $producer_username, true ); ?>" />
+		</p>
 		<?php
 	}
 
@@ -197,6 +201,14 @@ class WordPressTV_Theme {
 			update_post_meta( $post_id, '_wptv_slides_url', $slides_url );
 		} else {
 			delete_post_meta( $post_id, '_wptv_slides_url' );
+		}
+
+		$producer_username = sanitize_user( $_POST['_wptv_producer_username'], true );
+
+		if ( $producer_username ) {
+			update_post_meta( $post_id, '_wptv_producer_username', $producer_username );
+		} else {
+			delete_post_meta( $post_id, '_wptv_producer_username' );
 		}
 	}
 
