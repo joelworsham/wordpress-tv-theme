@@ -214,6 +214,9 @@ if ( !empty($_REQUEST['error']) ) {
 		case 13:
 			$message = "Error: please leave the first field empty. (It helps us know you're not a spammer.)";
 			break;
+		case 14:
+			$message = "Error: invalid WordPress.org username given for Producer.";
+			break;
 	}
 	$message = '<div class="error"><p>' . $message . '</p></div>';
 } elseif ( !empty($_REQUEST['success']) ) {

@@ -63,6 +63,10 @@ class WPTV_Anon_Upload {
 			return $this->error( 13 );
 		}
 
+		if ( isset ( $_POST['wptv_video_producer_username'] ) && dotorg_username_exists( $_POST['wptv_video_producer_username'] ) == false ) {
+			return $this->error( 14 );
+		}
+
 		if ( ! is_user_logged_in() ) {
 			if ( empty( $_POST['wptv_uploaded_by'] ) ) {
 				return $this->error( 10 );

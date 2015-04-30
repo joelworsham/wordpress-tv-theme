@@ -844,3 +844,16 @@ function wptv_excerpt_slides( $excerpt ) {
 	return $excerpt;
 }
 add_filter( 'get_the_excerpt', 'wptv_excerpt_slides' );
+
+function dotorg_username_exists( $username ) {
+	$url = 'https://profiles.wordpress.org/' . $username;
+	$response = wp_remote_get( $url );
+	$response = wp_remote_retrieve_headers( $response );
+
+	if ( array_key_exists( 'x-pingback', $response ) ) {
+		$result = ( $response['x-pingback'] == 'https://profiles.wordpress.org/xmlrpc.php' ) ? true : false;
+	} else {
+		$result = false;
+	}
+	return $result;
+}
