@@ -81,5 +81,15 @@
 						printf( '<a href="%s">Subtitle this video &rarr;</a>', esc_url( add_query_arg( 'video', $video->post_id, home_url( 'subtitle/' ) ) ) );
 					}
 				}
-			?>
+
+			// Credit video producer with link to their w.org profile
+			$producer = get_post_meta( get_the_ID(), '_wptv_producer_username', true );
+
+			if ( $producer ) { ?>
+				<h5>Producer</h5>
+				<div class="video-producer">
+					Video produced by: <a href="http://profiles.wordpress.org/<?php esc_attr_e( $producer ); ?>"><?php esc_attr_e( $producer ); ?></a>
+				</div>
+			<?php } ?>
+
 </div><!-- .secondary-content -->
