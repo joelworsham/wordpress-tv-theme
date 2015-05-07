@@ -49,6 +49,7 @@ class WPTV_Anon_Upload {
 			'wptv_video_title',
 			'wptv_video_producer',
 			'wptv_video_producer_username',
+			'wptv_video_producer_fullname',
 			'wptv_speakers',
 			'wptv_event',
 			'wptv_slides_url'
@@ -276,6 +277,7 @@ class WPTV_Anon_Upload {
 		$video_title             = $this->sanitize_text( $_posted['wptv_video_title'] );
 		$video_producer          = $this->sanitize_text( $_posted['wptv_video_producer'] );
 		$video_producer_username = $this->sanitize_text( $_posted['wptv_video_producer_username'] );
+		$video_producer_fullname = $this->sanitize_text( $_posted['wptv_video_producer_fullname'] );
 		$speakers                = $this->sanitize_text( $_posted['wptv_speakers'] );
 		$event                   = $this->sanitize_text( $_posted['wptv_event'] );
 		$description             = $this->sanitize_text( $_posted['wptv_video_description'], false );
@@ -300,6 +302,7 @@ class WPTV_Anon_Upload {
 			'title'             => $video_title,
 			'producer'          => $video_producer,
 			'producer_username' => $video_producer_username,
+			'producer_fullname' => $video_producer_fullname,
 			'speakers'          => $speakers,
 			'event'             => $event,
 			'language'          => $language,
@@ -511,6 +514,15 @@ class WPTV_Anon_Upload {
 					</div>
 
 					<div class="row">
+						<p class="label">Producer full name:</p>
+
+						<p class="data">
+							<input type="text" value="<?php echo esc_attr( $meta['producer_fullname'] ); ?>"/>
+							<a class="button-secondary anon-approve" href="#wptv-producer-fullname">Approve</a>
+						</p>
+					</div>
+
+					<div class="row">
 						<p class="label">Speakers:</p>
 
 						<p class="data">
@@ -577,6 +589,8 @@ class WPTV_Anon_Upload {
 							el.val(target.siblings('input[type="text"]').val());
 							el.siblings('.tagadd').click();
 						} else if ('#title' == id || '#wptv-producer-username' == id) {
+							el.val(target.siblings('input[type="text"]').val());
+						} else if ('#title' == id || '#wptv-producer-fullname' == id) {
 							el.val(target.siblings('input[type="text"]').val());
 						} else if ('#title' == id || '#wptv-slides-url' == id) {
 							el.val(target.siblings('input[type="text"]').val());

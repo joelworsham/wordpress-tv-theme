@@ -325,6 +325,10 @@ if ( !empty($_REQUEST['error']) ) {
 		<input type="text" id="wptv_video_producer_username" name="wptv_video_producer_username" value="" />
 	</p>
 	<p>
+		<label for="wptv_video_producer_fullname"><?php esc_html_e( 'Video producer full name' ); ?></label>
+		<input type="text" id="wptv_video_producer_fullname" name="wptv_video_producer_fullname" value="" />
+	</p>
+	<p>
 		<label for="wptv_speakers"><?php esc_html_e( 'Speakers' ); ?></label>
 		<input type="text" id="wptv_speakers" name="wptv_speakers" value="" />
 	</p>
