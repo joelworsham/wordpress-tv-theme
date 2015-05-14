@@ -165,7 +165,6 @@ class WordPressTV_Theme {
 
 		$slides_url = get_post_meta( $post->ID, '_wptv_slides_url', true );
 		$producer_username = get_post_meta( $post->ID, '_wptv_producer_username', true );
-		$producer_fullname = get_post_meta( $post->ID, '_wptv_producer_fullname', true );
 		wp_nonce_field( 'edit-video-info', 'video_info_metabox_nonce' );
 
 		?>
@@ -177,10 +176,6 @@ class WordPressTV_Theme {
 		<p>
 			<label for="wptv-producer-username">Video Producer WordPress.org Username</label>
 			<input type="text" class="widefat" id="wptv-producer-username" name="_wptv_producer_username" value="<?php echo sanitize_user( $producer_username, true ); ?>" />
-		</p>
-		<p>
-			<label for="wptv-producer-fullname">Video Producer Full Name</label>
-			<input type="text" class="widefat" id="wptv-producer-fullname" name="_wptv_producer_fullname" value="<?php esc_attr_e( $producer_fullname ); ?>" />
 		</p>
 		<?php
 	}
@@ -214,14 +209,6 @@ class WordPressTV_Theme {
 			update_post_meta( $post_id, '_wptv_producer_username', $producer_username );
 		} else {
 			delete_post_meta( $post_id, '_wptv_producer_username' );
-		}
-
-		$producer_fullname = esc_attr( $_POST['_wptv_producer_fullname'] );
-
-		if ( $producer_fullname ) {
-			update_post_meta( $post_id, '_wptv_producer_fullname', $producer_fullname );
-		} else {
-			delete_post_meta( $post_id, '_wptv_producer_fullname' );
 		}
 	}
 
