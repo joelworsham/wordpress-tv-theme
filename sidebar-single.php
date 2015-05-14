@@ -84,12 +84,12 @@
 
 			// Credit video producer with link to their w.org profile
 			$producer_username = get_post_meta( get_the_ID(), '_wptv_producer_username', true );
-			//$producer_name = ( get_post_meta( get_the_ID(), '_wptv_producer_fullname', true ) ) ? get_post_meta( get_the_ID(), '_wptv_producer_fullname', true ) : $producer_username;
+			$producer_name = ( get_the_terms( get_the_ID(), 'producer' ) ) ? get_the_terms( get_the_ID(), 'producer' )[0]->name : $producer_username;
 
 			if ( $producer_username ) { ?>
 				<h5>Producer</h5>
 				<div class="video-producer">
-					Video produced by: <a href="http://profiles.wordpress.org/<?php esc_attr_e( $producer_username ); ?>">name here<?php //esc_attr_e( $producer_name ); ?></a>
+					<a href="http://profiles.wordpress.org/<?php esc_attr_e( $producer_username ); ?>"><?php esc_attr_e( $producer_name ); ?></a>
 				</div>
 			<?php } ?>
 

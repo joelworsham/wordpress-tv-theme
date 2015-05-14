@@ -183,7 +183,7 @@ get_header();
 
 $message = '';
 
-if ( !empty($_REQUEST['error']) ) {
+if ( !empty( $_REQUEST['error'] ) ) {
 	$message = (int) $_REQUEST['error'];
 
 	switch ( $message ) {
