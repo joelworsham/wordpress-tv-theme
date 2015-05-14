@@ -126,9 +126,9 @@ function anon_upload_css() {
 		border-color: #bbb;
 	}
 
-		.video-upload-left #wptv_honey_container {
-			display: none;
-		}
+	.video-upload-left #wptv_honey_container {
+		display: none;
+	}
 
 	#video-upload-form p.last {
 		margin: 5px 80px 25px;
@@ -168,6 +168,10 @@ function anon_upload_css() {
 		float: none;
 		display: inline;
 		width: auto;
+	}
+
+	#wptv_video_producer_username {
+		margin: 22px 0;
 	}
 	</style>
 	<?php
@@ -315,13 +319,8 @@ if ( !empty($_REQUEST['error']) ) {
 			?>
 		</ul>
 	</div>
-
 	<p>
-		<label for="wptv_video_producer"><?php esc_html_e( 'Video producer' ); ?></label>
-		<input type="text" id="wptv_video_producer" name="wptv_video_producer" value="" />
-	</p>
-	<p>
-		<label for="wptv_video_producer_username"><?php esc_html_e( 'Video producer WordPress.org Username' ); ?></label>
+		<label for="wptv_video_producer_username"><?php esc_html_e( 'Producer WordPress.org Username' ); ?></label>
 		<input type="text" id="wptv_video_producer_username" name="wptv_video_producer_username" value="" />
 	</p>
 	<p>

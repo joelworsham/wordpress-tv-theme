@@ -47,7 +47,6 @@ class WPTV_Anon_Upload {
 	function validate() {
 		$text_fields = array(
 			'wptv_video_title',
-			'wptv_video_producer',
 			'wptv_video_producer_username',
 			'wptv_speakers',
 			'wptv_event',
@@ -274,7 +273,6 @@ class WPTV_Anon_Upload {
 		}
 
 		$video_title             = $this->sanitize_text( $_posted['wptv_video_title'] );
-		$video_producer          = $this->sanitize_text( $_posted['wptv_video_producer'] );
 		$video_producer_username = $this->sanitize_text( $_posted['wptv_video_producer_username'] );
 		$speakers                = $this->sanitize_text( $_posted['wptv_speakers'] );
 		$event                   = $this->sanitize_text( $_posted['wptv_event'] );
@@ -298,7 +296,6 @@ class WPTV_Anon_Upload {
 			'submitted_by'      => $anon_author,
 			'submitted_email'   => $anon_author_email,
 			'title'             => $video_title,
-			'producer'          => $video_producer,
 			'producer_username' => $video_producer_username,
 			'speakers'          => $speakers,
 			'event'             => $event,
@@ -489,15 +486,6 @@ class WPTV_Anon_Upload {
 						<p class="data">
 							<input type="text" value="<?php echo esc_attr( $meta['event'] ); ?>"/>
 							<a class="button-secondary anon-approve" href="#new-tag-event">Approve</a>
-						</p>
-					</div>
-
-					<div class="row">
-						<p class="label">Producer:</p>
-
-						<p class="data">
-							<input type="text" value="<?php echo esc_attr( $meta['producer'] ); ?>"/>
-							<a class="button-secondary anon-approve" href="#new-tag-producer">Approve</a>
 						</p>
 					</div>
 
