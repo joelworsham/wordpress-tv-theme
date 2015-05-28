@@ -280,7 +280,7 @@ class WordPressTV_Theme {
 			$n      = empty( $query->query_vars['exact'] ) ? '%' : '';
 
 			foreach ( (array) $query->query_vars['search_terms'] as $term ) {
-				$term = esc_sql( like_escape( $term ) );
+				$term = esc_sql( $wpdb->esc_like( $term ) );
 				$search .= "{$searchand}(($wpdb->posts.post_title LIKE '{$n}{$term}{$n}') OR ($wpdb->posts.post_content LIKE '{$n}{$term}{$n}'))";
 				$searchand = ' AND ';
 			}
@@ -784,9 +784,6 @@ function wptv_enqueue_scripts() {
 	wp_enqueue_style( 'wptv-ie', get_template_directory_uri() . '/ie6.css', array( 'wptv-style' ) );
 	wp_style_add_data( 'wptv-ie', 'conditional', 'IE 6' );
 
-	wp_register_script( 'wptv-dropdowns', get_template_directory_uri() . '/js/dropdowns.js' );
-	wp_enqueue_script( 'wptv-dropdowns', array( 'jquery' ) );
-
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -845,13 +842,23 @@ function wptv_excerpt_slides( $excerpt ) {
 }
 add_filter( 'get_the_excerpt', 'wptv_excerpt_slides' );
 
+/**
+ * When given a string, returns boolean based on whether the string matches a valid w.org username
+ *
+ * @param $username
+ *
+ * @return bool
+ */
 function dotorg_username_exists( $username ) {
-	$url = 'https://profiles.wordpress.org/' . $username;
-	$response = wp_remote_get( $url );
+	$args = array(
+		'redirection' => 0,
+	);
+	$url = 'https://wordpress.org/grav-redirect.php?user=' . $username;
+	$response = wp_remote_get( $url, $args );
 	$response = wp_remote_retrieve_headers( $response );
 
-	if ( array_key_exists( 'x-pingback', $response ) ) {
-		$result = ( $response['x-pingback'] == 'https://profiles.wordpress.org/xmlrpc.php' ) ? true : false;
+	if ( validate_username( $username ) && array_key_exists( 'location', $response ) ) {
+		$result = ( ! strpos( $response['location'], 'd=mm' ) ) ? true : false;
 	} else {
 		$result = false;
 	}
